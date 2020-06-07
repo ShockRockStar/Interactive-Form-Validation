@@ -461,8 +461,12 @@ submitButton.addEventListener("click", (e)=>{
         console.log("Credit card # invalid");
     }
 
-    // if(!userNameValid) {
-    //     console.log("User Name not valid");
-    // }
+    if(!zipCodeValid && ccPayment) {
+        console.log("Zip Code # invalid");
+    }
+
+    if(!cvvValid && ccPayment) {
+        console.log("CVV # invalid");
+    }
 
 });
