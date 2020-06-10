@@ -2,7 +2,7 @@
 
 const nameEntry = document.querySelector("#name");
 nameEntry.focus();
-
+const defaultColor = document.createElement("option");
 //declare a global variable that retrieves the title id.
 const titleList = document.getElementById("title");
 
@@ -44,7 +44,7 @@ document.querySelector("#colors-js-puns").style.display= "none";
 function defaultColors() {
     hideColors();
 
-    const defaultColor = document.createElement("option");
+    // defaultColor variable moved to global scope
     defaultColor.value = "defaultColor";
     defaultColor.textContent = "Choose your t-shirt theme!";
     defaultColor.selected = true;
@@ -65,7 +65,8 @@ function jsPunsTheme(){
             case "cornflowerblue":
             case "darkslategrey":
             case "gold":
-                colors[i].style.display = "inherit";
+                defaultColor.textContent = "";  
+                colors[i].style.display = "inherit";                           
                 break;
         }
     }
@@ -443,21 +444,20 @@ jsForm.addEventListener('submit', (e) => {
     
      if(userNameValid && emailValid && checkboxActive() && cardNumberIsValid && zipCodeValid && cvvValid) {
         alert("Thank you for submitting.");
-            console.log("Thank you for submitting");
-            e.preventDefault();     
+            console.log("Thank you for submitting");  
+            //e.preventDefault();     
     } else if (userNameValid && emailValid && checkboxActive() && payments[2].selected) {
         alert("Sending you to the Paypal submission form.");
-             e.preventDefault();   
-            } else if (userNameValid && emailValid && checkboxActive() && !creditCard) {
-                alert("Please check the fields again!");
-                     e.preventDefault(); 
+             //e.preventDefault();   
+    
     
     } else if (userNameValid && emailValid && checkboxActive() && payments[3].selected) {
         alert("Sending you to Bitcoin submission form.");
-             e.preventDefault();   
-            } else if (userNameValid && emailValid && checkboxActive() && !creditCard) {
-                alert("Please check the fields again!");
-                     e.preventDefault(); 
+             //e.preventDefault();
+
+    } else if (userNameValid && emailValid && checkboxActive() && !creditCard) {
+        alert("Please check the fields again!");
+                e.preventDefault(); 
     
     } else{
         alert("Please check the fields again.");
