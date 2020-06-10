@@ -189,11 +189,13 @@ let ccPayment = true;
             creditCard.style.display = "none";
             paypal.style.display = "inherit";
             bitcoin.style.display = "none";
+            invalidCC.style.display = "none";
             ccPayment = false;
         } else if(e.target.value == "bitcoin"){
             creditCard.style.display = "none";
             paypal.style.display = "none";
             bitcoin.style.display = "inherit";
+            invalidCC.style.display = "none";
             ccPayment = false;
 
         }  
@@ -224,7 +226,7 @@ invalidName.style.display = "none";
 
 function validateName(name){
     //this validation checkes for the first and last name
-   return /^[A-Za-z]+\s[A-Za-z]+$/.test(name);
+   return /^[A-Za-z]+?\s?[A-Za-z]+$/.test(name);
 };
 
 //Create event listeners (Name Event listener) 
@@ -435,20 +437,29 @@ cvvNumber.addEventListener("input", () => {
 
 });
 
+
 const jsForm = document.querySelector('#formValidate');
 jsForm.addEventListener('submit', (e) => {
     
      if(userNameValid && emailValid && checkboxActive() && cardNumberIsValid && zipCodeValid && cvvValid) {
         alert("Thank you for submitting.");
             console.log("Thank you for submitting");
-            e.preventDefault(); 
-    } else if(userNameValid && emailValid && checkboxActive()) {
-        alert("Thank you for submitting, we will now process your PayPal/Bitcoin.");
-            console.log("Thank you for submitting");
-            e.preventDefault(); 
-    }
+            e.preventDefault();     
+    } else if (userNameValid && emailValid && checkboxActive() && payments[2].selected) {
+        alert("Sending you to the Paypal submission form.");
+             e.preventDefault();   
+            } else if (userNameValid && emailValid && checkboxActive() && !creditCard) {
+                alert("Please check the fields again!");
+                     e.preventDefault(); 
     
-    else {
+    } else if (userNameValid && emailValid && checkboxActive() && payments[3].selected) {
+        alert("Sending you to Bitcoin submission form.");
+             e.preventDefault();   
+            } else if (userNameValid && emailValid && checkboxActive() && !creditCard) {
+                alert("Please check the fields again!");
+                     e.preventDefault(); 
+    
+    } else{
         alert("Please check the fields again.");
         console.log("Please check all fields.");
         console.log(userNameValid);
@@ -461,4 +472,4 @@ jsForm.addEventListener('submit', (e) => {
     }
 });
     
-    
+console.log(paymentSelection[2].value);
