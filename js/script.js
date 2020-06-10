@@ -114,9 +114,12 @@ function heartJS() {
 const checkboxes = document.querySelectorAll(".activities input");
 let totalCost = 0;
 let h2 = document.createElement("h2");
+let h3 = document.createElement("h3");
 h2.innerHTML = `Total: $ ${totalCost}`;
+h3.innerHTML - "Please select an activity.";
 let activitiesGroup = document.querySelector(".activities");
 activitiesGroup.appendChild(h2);
+activitiesGroup.appendChild(h3);
 
 //Check for any chagees with the activities checkbox
 document.querySelector(".activities").addEventListener("change", (event)=>{
@@ -132,8 +135,17 @@ document.querySelector(".activities").addEventListener("change", (event)=>{
     h2.innerHTML = `Total: $ ${totalCost}`;
 } else{
     totalCost -= +parseInt(selectedCheckboxCost);
-    h2.innerHTML = `Total: $ ${totalCost}`;
+    h2.innerHTML = `Total: $ ${totalCost}`;   
 }
+
+if(selectedCheckbox.checked){
+    h3.textContent = "";
+} else if (selectedCheckbox.checked){
+    h3.innerHTML = "Please select an activity.";
+    h3.style.color = "red"; 
+}
+
+
 
     for(let i=0; i<checkboxes.length;i++){
         const selectedTime = checkboxes[i].getAttribute("data-day-and-time");
@@ -217,6 +229,7 @@ let fieldset = document.getElementById("checks");
 let chargeFieldset = document.getElementById("checks2");
 let activityFieldset = document.getElementById("activities");
 
+
 //validate name
 
 const invalidName =  document.createElement("label");
@@ -280,17 +293,21 @@ emailEntry.addEventListener("blur", ()=>{
    }
 });
 
+
 //ACTIVITY
 
+
 function checkboxActive(){
-   if (totalCost == 0){
-       console.log("Activity wasn't selected.");
-      return validActivity = false;
-   } else {        
-       return validActivity = true;
-   };
+    if (totalCost == 0){
+        console.log("Activity wasn't selected.");
+       return validActivity = false;
+       
+    } else {        
+        return validActivity = true;
+        
+    }
 };
-      
+
 
 
 //validation for credit card number
@@ -298,7 +315,7 @@ function checkboxActive(){
 const invalidCC =  document.createElement("label");
 invalidCC.classList.add("invalidCC");
 chargeFieldset.insertBefore(invalidCC, chargeFieldset.children[0]);
-invalidCC.innerHTML = "Please enter a valid credit card #.";
+invalidCC.innerHTML = "Please enter your payment information.";
 invalidCC.style.color = "red";
 invalidCC.style.display = "none";
 
@@ -459,7 +476,7 @@ jsForm.addEventListener('submit', (e) => {
     
     } else{
         alert("Please check the fields again.");
-        console.log("Please check all fields.");
+        console.log("Please check all fields.");        
         console.log(userNameValid);
         console.log(emailValid);
         console.log(checkboxActive());
@@ -467,7 +484,12 @@ jsForm.addEventListener('submit', (e) => {
         console.log(zipCodeValid);
         console.log(cvvValid);
         e.preventDefault();
+        invalidEmail.style.display = "inherit";
+        invalidEmail.style.color = "red";
+        h3.innerHTML = "Please select an activity.";
+        h3.style.color = "red";
+        invalidCC.style.display = "inherit";
+        invalidCC.style.fontWeight = "bold";
     }
 });
-    
-console.log(paymentSelection[2].value);
+
